@@ -40,17 +40,33 @@
         android:hint="Enter Password"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:onClick="openRegister"
+        android:textColor="@android:color/black"
+        android:text="Register Now"/>
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/password"
+        android:layout_height="56dp"
+        android:layout_below="@+id/register"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/btn_style"
         android:text="LOG IN"
+        android:onClick="openMainActivity"
         android:textColor="#fff"
         android:textSize="20sp" />
 </RelativeLayout>

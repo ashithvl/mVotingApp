@@ -7,7 +7,6 @@
     android:background="#cedafc"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-
     <Button
         android:id="@+id/currentElection"
         android:layout_width="match_parent"
@@ -22,6 +21,7 @@
         android:elevation="4dp"
         android:text="CURRENT ELECTIONS"
         android:textColor="#ffffff"
+        android:onClick="openElectionsActivity"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/previousElection"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +43,7 @@
         android:background="@drawable/btn_style"
         android:elevation="4dp"
         android:text="PREVIOUS ELECTIONS"
+        android:onClick="openPreviousElectionsActivity"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
