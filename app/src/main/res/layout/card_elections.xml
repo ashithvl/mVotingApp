@@ -14,9 +14,10 @@
         android:padding="8dp"
         android:text="Election"
         android:textColor="#000"
-        android:textSize="17sp" />
+        android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/electionTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

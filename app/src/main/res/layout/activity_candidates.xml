@@ -2,22 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cedafc">
+    android:background="#fff">
 
     <TextView
         android:id="@+id/electionName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Election"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:text="Candidates List"
         android:textColor="#000"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
-
-    <android.support.v7.widget.RecyclerView
+    <com.blueangels.Utils.EmptyRecyclerView
+        android:id="@+id/candidatesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/electionName"
-        android:padding="16dp" />
+        android:layout_below="@id/electionName" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:padding="8dp"
+        android:text="No Candidates to Display!"
+        android:textColor="#fd0303"
+        android:textSize="16sp" />
 
 </RelativeLayout>

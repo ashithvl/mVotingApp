@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff"
-    android:elevation="4dp"
     android:orientation="horizontal">
 
     <TextView
@@ -13,31 +12,32 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:padding="8dp"
-        android:text="Election"
+        android:text="Election List"
+        android:textAlignment="center"
         android:textColor="#000"
-        android:textSize="17sp" />
+        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/electionTime"
+    <com.blueangels.Utils.EmptyRecyclerView
+        android:id="@+id/electionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/election"
-        android:paddingEnd="16dp"
-        android:paddingStart="8dp"
+        android:layout_marginTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Ends in 00/00/0000"
-        android:textColor="#545353"
-        android:textSize="16sp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/electionTime"
-        android:paddingBottom="8dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
         android:textColor="#545353"
         android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:padding="8dp"
+        android:text="No Election to Display!"
+        android:textColor="#fd0303"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

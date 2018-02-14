@@ -1,10 +1,12 @@
-package com.blueangels;
+package com.blueangels.Activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.blueangels.R;
 
 public class LoginActivity extends AppCompatActivity {
 
