@@ -25,6 +25,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    //Timber is a lightweight library to write logs
+    compile 'com.jakewharton.timber:timber:4.6.1'
+
+    //generate boiler plate
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //custom toast
+    compile 'com.github.GrenderG:Toasty:1.2.8'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

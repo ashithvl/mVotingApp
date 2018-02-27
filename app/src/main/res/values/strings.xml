@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">mVoting App</string>
+    <string name="enter_aadhar_card_number">Enter Aadhar Card Number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="re_enter_password">Re Enter Password</string>
+    <string name="register">register</string>
 </resources>

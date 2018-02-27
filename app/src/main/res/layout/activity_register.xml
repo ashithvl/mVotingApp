@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cedafc">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/aadharNum"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/edit_style"
-        android:hint="Enter Name"
-        android:inputType="textPassword"
+        android:hint="@string/enter_aadhar_card_number"
+        android:inputType="number"
+        android:imeOptions="actionNext"
         android:paddingStart="16dp"
+        android:paddingEnd="16dp"
        android:layout_marginTop="120dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"/>
@@ -25,10 +25,12 @@
         android:background="@drawable/edit_style"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:imeOptions="actionNext"
         android:layout_marginStart="20dp"
-        android:layout_below="@+id/username"
-        android:hint="Enter Password"
+        android:layout_below="@+id/aadharNum"
+        android:hint="@string/enter_password"
         android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:inputType="textPassword" />
     <EditText
         android:layout_width="match_parent"
@@ -37,9 +39,11 @@
         android:background="@drawable/edit_style"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:imeOptions="actionDone"
         android:layout_marginEnd="20dp"
-        android:hint="Re Enter Password"
+        android:hint="@string/re_enter_password"
         android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:inputType="textPassword"
         android:layout_below="@+id/password"/>
     <Button
@@ -51,7 +55,8 @@
         android:layout_marginStart="20dp"
         android:layout_below="@+id/repassword"
         android:layout_marginTop="20dp"
-        android:text="REGISTER"
+        android:text="@string/register"
+        android:textAllCaps="true"
         android:onClick="openLoginActivity"
         android:textColor="#fff"
         android:textSize="20sp"/>
