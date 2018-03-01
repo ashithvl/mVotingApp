@@ -20,18 +20,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MVoteApplication extends Application {
 
-    public static final String BASE_URL = "http://192.168.0.102:8080/";
+    public static final String BASE_URL = "http://192.168.0.103:8080/";
+    private static Context context;
     private Retrofit retrofit;
 
     public static MVoteApplication get(Activity activity) {
         return (MVoteApplication) activity.getApplication();
     }
 
+    public static Context getAppContext() {
+        return context;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Context context = this;
+        context = this;
 
         Cache cache = getCache(new File(context.getCacheDir(), "cache_mVote"));
 
@@ -65,7 +70,7 @@ public class MVoteApplication extends Application {
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
-                .cache(cache)
+//                .cache(cache)
                 .build();
     }
 }

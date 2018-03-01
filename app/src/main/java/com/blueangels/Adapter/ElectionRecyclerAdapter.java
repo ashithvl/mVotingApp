@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blueangels.Activity.CandidatesActivity;
-import com.blueangels.Model.ElectionModel;
+import com.blueangels.Model.Election;
 import com.blueangels.R;
+import com.github.thunder413.datetimeutils.DateTimeStyle;
+import com.github.thunder413.datetimeutils.DateTimeUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Leon on 14-02-18.
@@ -20,12 +23,14 @@ import java.util.ArrayList;
 
 public class ElectionRecyclerAdapter extends RecyclerView.Adapter<ElectionRecyclerAdapter.ElectionViewHolder> {
 
-    private ArrayList<ElectionModel> electionArrayList;
+    private ArrayList<Election> electionArrayList;
     private Context mContext;
+    private boolean current;
 
-    public ElectionRecyclerAdapter(ArrayList<ElectionModel> electionArrayList, Context mContext) {
+    public ElectionRecyclerAdapter(ArrayList<Election> electionArrayList, Context mContext, boolean current) {
         this.electionArrayList = electionArrayList;
         this.mContext = mContext;
+        this.current = current;
     }
 
     @Override
@@ -37,15 +42,22 @@ public class ElectionRecyclerAdapter extends RecyclerView.Adapter<ElectionRecycl
     @Override
     public void onBindViewHolder(final ElectionViewHolder holder, int position) {
 
-        ElectionModel electionModel = electionArrayList.get(position);
+        final Election electionModel = electionArrayList.get(position);
+
+        Date date = DateTimeUtils.formatDate(electionModel.getElectionEndDate());
 
         holder.electionNameTextView.setText(electionModel.getElectionName());
-        holder.electionTimeTextView.setText("Ends in: "+electionModel.getElectionTime());
+        holder.electionTimeTextView.setText("Ends in: " + DateTimeUtils.formatWithStyle(date, DateTimeStyle.FULL));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent electionIntent = new Intent(mContext,CandidatesActivity.class);
+                Intent electionIntent = new Intent(mContext, CandidatesActivity.class);
+                electionIntent.putExtra("id", electionModel.getElectionId());
+                if (current)
+                    electionIntent.putExtra("current", true);
+                else
+                    electionIntent.putExtra("current", false);
                 mContext.startActivity(electionIntent);
             }
         });

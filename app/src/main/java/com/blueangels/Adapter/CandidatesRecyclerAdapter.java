@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blueangels.Activity.CandidateDetailsActivity;
 import com.blueangels.Activity.CandidatesActivity;
+import com.blueangels.Model.Candidate;
 import com.blueangels.Model.CandidatesModel;
 import com.blueangels.Model.ElectionModel;
 import com.blueangels.R;
@@ -25,12 +27,16 @@ import java.util.ArrayList;
 
 public class CandidatesRecyclerAdapter extends RecyclerView.Adapter<CandidatesRecyclerAdapter.ElectionViewHolder> {
 
-    private ArrayList<CandidatesModel> candidatesArrayList;
+    private ArrayList<Candidate> candidatesArrayList;
     private Context mContext;
+    private String elecionId;
+    private boolean current;
 
-    public CandidatesRecyclerAdapter(ArrayList<CandidatesModel> electionArrayList, Context mContext) {
+    public CandidatesRecyclerAdapter(ArrayList<Candidate> electionArrayList, Context mContext, String elecionId, boolean current) {
         this.candidatesArrayList = electionArrayList;
         this.mContext = mContext;
+        this.elecionId = elecionId;
+        this.current = current;
     }
 
     @Override
@@ -42,36 +48,24 @@ public class CandidatesRecyclerAdapter extends RecyclerView.Adapter<CandidatesRe
     @Override
     public void onBindViewHolder(final ElectionViewHolder holder, int position) {
 
-        CandidatesModel candidatesModel = candidatesArrayList.get(position);
+        final Candidate candidatesModel = candidatesArrayList.get(position);
 
-        holder.candidateNameTextView.setText(candidatesModel.getName());
-        holder.countTimeTextView.setText("Total Vote Count: " + candidatesModel.getTotalCount());
-        if (candidatesModel.getVoted().equals("1")) {
-            holder.voteButton.setText("Voted");
-            holder.voteButton.setEnabled(false);
-            holder.voteButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.vote_btn_style));
-        } else {
-            holder.voteButton.setText("Vote");
-            holder.voteButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.vote_btn_style_red));
-        }
+        holder.candidateNameTextView.setText(candidatesModel.getCandidatesName());
 
-        holder.voteButton.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean voted = false;
-                for (CandidatesModel candidatesModel1 : candidatesArrayList) {
-                    if (candidatesModel1.getVoted().equals("1")) {
-                        voted = true;
-                    }
-                }
-                if (voted) {
-                    Toast.makeText(mContext, "Already voted", Toast.LENGTH_LONG).show();
-                } else {
-
-                }
+                Intent candidateIntent = new Intent(mContext, CandidateDetailsActivity.class);
+                candidateIntent.putExtra("c_id", String.valueOf(candidatesModel.getCandidatesId()));
+                candidateIntent.putExtra("e_id", elecionId);
+                candidateIntent.putExtra("name", candidatesModel.getCandidatesName());
+                if (current)
+                    candidateIntent.putExtra("current", true);
+                else
+                    candidateIntent.putExtra("current", false);
+                mContext.startActivity(candidateIntent);
             }
         });
-
 
     }
 
@@ -83,16 +77,12 @@ public class CandidatesRecyclerAdapter extends RecyclerView.Adapter<CandidatesRe
     class ElectionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView candidateNameTextView;
-        private TextView countTimeTextView;
         private ImageView candidateImageView;
-        private Button voteButton;
 
         ElectionViewHolder(View itemView) {
             super(itemView);
             candidateNameTextView = itemView.findViewById(R.id.name);
-            countTimeTextView = itemView.findViewById(R.id.count);
             candidateImageView = itemView.findViewById(R.id.img);
-            voteButton = itemView.findViewById(R.id.vote);
         }
     }
 }

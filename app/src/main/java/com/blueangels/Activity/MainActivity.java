@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     public void openElectionsActivity(View view) {
         Intent electionIntent = new Intent(mContext,ElectionActivity.class);
         electionIntent.putExtra("current",true);
-        electionIntent.putExtra("previous",false);
         startActivity(electionIntent);
 
     }
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public void openPreviousElectionsActivity(View view) {
         Intent electionIntent = new Intent(mContext,ElectionActivity.class);
         electionIntent.putExtra("current",false);
-        electionIntent.putExtra("previous",true);
         startActivity(electionIntent);
     }
 }
