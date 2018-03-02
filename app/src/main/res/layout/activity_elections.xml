@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/election"
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:padding="8dp"
-        android:text="Election List"
+        android:text="@string/election_list"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="18sp" />
@@ -21,23 +20,21 @@
         android:id="@+id/electionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/election"
         android:layout_marginTop="8dp"
         android:paddingBottom="8dp"
         android:textColor="#545353"
         android:textSize="15sp" />
 
-
     <TextView
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
         android:ellipsize="end"
         android:padding="8dp"
-        android:text="No Election to Display!"
+        android:text="@string/no_election_to_display"
         android:textColor="#fd0303"
         android:textSize="16sp" />
 
-
-</RelativeLayout>
+</LinearLayout>

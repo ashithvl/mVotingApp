@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MVoteApplication extends Application {
 
-    public static final String BASE_URL = "http://192.168.0.103:8080/";
+    public static final String BASE_URL = "http://192.168.42.58:8080/";
     private static Context context;
     private Retrofit retrofit;
 
@@ -70,7 +70,7 @@ public class MVoteApplication extends Application {
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
-//                .cache(cache)
+                .cache(cache)
                 .build();
     }
 }

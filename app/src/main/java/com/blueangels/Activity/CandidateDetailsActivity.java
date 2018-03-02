@@ -54,8 +54,8 @@ public class CandidateDetailsActivity extends AppCompatActivity {
         Call<CandidateDetail> call = apiService.getCandidateVote(userId, electionId, candidateId);
         call.enqueue(new Callback<CandidateDetail>() {
             @Override
-            public void onResponse(Call<CandidateDetail> call, Response<CandidateDetail> response) {
-                final CandidateDetail candidateDetail = response.body();
+            public void onResponse(Call<CandidateDetail> call,final Response<CandidateDetail> response) {
+                CandidateDetail candidateDetail = response.body();
                 if (response.code() != 404) {
                     name.setText(candidateDetail.getCandidatesName());
                     count.setText("Total Vote Count: " + candidateDetail.getVotesCount());
@@ -73,17 +73,19 @@ public class CandidateDetailsActivity extends AppCompatActivity {
                     vote.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (candidateDetail.getVote().equals("true")) {
+                            Log.e("y", "onClick: "+response.body().getVote() );
+                            if (response.body().getVote().equals("true")) {
                                 Toasty.info(CandidateDetailsActivity.this, "Already voted").show();
                             } else {
                                 Call<String> voteStringCall = apiService.vote(userId, electionId, candidateId);
                                 voteStringCall.enqueue(new Callback<String>() {
                                     @Override
                                     public void onResponse(Call<String> call, Response<String> response) {
+                                        Log.e("t", "" + response.code());
                                         if (response.code() != 404) {
                                             Toasty.success(CandidateDetailsActivity.this, "Voted Successfully!!!").show();
                                         } else {
-                                            Toasty.warning(CandidateDetailsActivity.this, "OOPS! Something went Wrong").show();
+                                            Toasty.info(CandidateDetailsActivity.this, "Already voted").show();
                                         }
                                     }
 
@@ -106,12 +108,13 @@ public class CandidateDetailsActivity extends AppCompatActivity {
                     vote.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            Call<String> voteStringCall = apiService.vote(userId, electionId, candidateId);
+                            ApiService voteApiService = ApiFactory.create(MVoteApplication.get(CandidateDetailsActivity.this).getRetrofit());
+                            Call<String> voteStringCall = voteApiService.vote(userId, electionId, candidateId);
                             voteStringCall.enqueue(new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     count.setText("Total Vote Count: 1");
+                                    vote.setText("Voted");
                                     vote.setBackground(ContextCompat.getDrawable(CandidateDetailsActivity.this,
                                             R.drawable.vote_btn_style));
                                     Toasty.success(CandidateDetailsActivity.this, "Voted Successfully!!!").show();

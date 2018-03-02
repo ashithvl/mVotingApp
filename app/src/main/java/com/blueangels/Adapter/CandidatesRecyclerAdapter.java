@@ -46,9 +46,9 @@ public class CandidatesRecyclerAdapter extends RecyclerView.Adapter<CandidatesRe
     }
 
     @Override
-    public void onBindViewHolder(final ElectionViewHolder holder, int position) {
+    public void onBindViewHolder(final ElectionViewHolder holder, final int position) {
 
-        final Candidate candidatesModel = candidatesArrayList.get(position);
+        Candidate candidatesModel = candidatesArrayList.get(position);
 
         holder.candidateNameTextView.setText(candidatesModel.getCandidatesName());
 
@@ -56,9 +56,9 @@ public class CandidatesRecyclerAdapter extends RecyclerView.Adapter<CandidatesRe
             @Override
             public void onClick(View v) {
                 Intent candidateIntent = new Intent(mContext, CandidateDetailsActivity.class);
-                candidateIntent.putExtra("c_id", String.valueOf(candidatesModel.getCandidatesId()));
+                candidateIntent.putExtra("c_id", String.valueOf(candidatesArrayList.get(position).getCandidatesId()));
                 candidateIntent.putExtra("e_id", elecionId);
-                candidateIntent.putExtra("name", candidatesModel.getCandidatesName());
+                candidateIntent.putExtra("name", candidatesArrayList.get(position).getCandidatesName());
                 if (current)
                     candidateIntent.putExtra("current", true);
                 else
