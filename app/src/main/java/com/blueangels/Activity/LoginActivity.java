@@ -52,9 +52,12 @@ public class LoginActivity extends AppCompatActivity {
             loginCall.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    PreferencesAppHelper.setUserId(String.valueOf(response.body().getId()));
-                    Toasty.success(mContext, "Login Successful!").show();
-                    startActivity(new Intent(mContext, MainActivity.class));
+                    if (response.body() != null) {
+                        PreferencesAppHelper.setUserId(String.valueOf(response.body().getId()));
+                        Toasty.success(mContext, "Login Successful!").show();
+                        startActivity(new Intent(mContext, MainActivity.class));
+                    }else
+                        Toasty.error(mContext, "In-Valid User Name or Password").show();
                 }
 
                 @Override
