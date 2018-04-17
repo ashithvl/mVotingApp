@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.blueangels.Utils.ErrorInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MVoteApplication extends Application {
 
-    public static final String BASE_URL = "http://192.168.42.58:8080/";
+    public static final String BASE_URL = "http://192.168.42.231:8080/";
     private static Context context;
     private Retrofit retrofit;
 
@@ -51,10 +53,14 @@ public class MVoteApplication extends Application {
     }
 
     private Retrofit getRetrofit(OkHttpClient okHttpClient) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 

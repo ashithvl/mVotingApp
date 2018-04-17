@@ -14,6 +14,7 @@ import com.blueangels.Api.ApiFactory;
 import com.blueangels.Api.ApiService;
 import com.blueangels.MVoteApplication;
 import com.blueangels.Model.CandidateDetail;
+import com.blueangels.Model.Vote;
 import com.blueangels.R;
 import com.blueangels.Utils.PreferencesAppHelper;
 
@@ -54,7 +55,7 @@ public class CandidateDetailsActivity extends AppCompatActivity {
         Call<CandidateDetail> call = apiService.getCandidateVote(userId, electionId, candidateId);
         call.enqueue(new Callback<CandidateDetail>() {
             @Override
-            public void onResponse(Call<CandidateDetail> call,final Response<CandidateDetail> response) {
+            public void onResponse(Call<CandidateDetail> call, final Response<CandidateDetail> response) {
                 CandidateDetail candidateDetail = response.body();
                 if (response.code() != 404) {
                     name.setText(candidateDetail.getCandidatesName());
@@ -73,16 +74,17 @@ public class CandidateDetailsActivity extends AppCompatActivity {
                     vote.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("y", "onClick: "+response.body().getVote() );
+                            Log.e("y", "onClick: " + response.body().getVote());
                             if (response.body().getVote().equals("true")) {
                                 Toasty.info(CandidateDetailsActivity.this, "Already voted").show();
                             } else {
-                                Call<String> voteStringCall = apiService.vote(userId, electionId, candidateId);
-                                voteStringCall.enqueue(new Callback<String>() {
+                                Call<Vote> voteStringCall = apiService.vote(userId, electionId, candidateId);
+                                voteStringCall.enqueue(new Callback<Vote>() {
                                     @Override
-                                    public void onResponse(Call<String> call, Response<String> response) {
+                                    public void onResponse(Call<Vote> call, Response<Vote> response) {
                                         Log.e("t", "" + response.code());
-                                        if (response.code() != 404) {
+                                        Vote vote = response.body();
+                                        if (vote != null && vote.getVote().equals("success")) {
                                             Toasty.success(CandidateDetailsActivity.this, "Voted Successfully!!!").show();
                                         } else {
                                             Toasty.info(CandidateDetailsActivity.this, "Already voted").show();
@@ -90,7 +92,7 @@ public class CandidateDetailsActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<String> call, Throwable t) {
+                                    public void onFailure(Call<Vote> call, Throwable t) {
                                         Toasty.error(CandidateDetailsActivity.this,
                                                 "Already voted in this election to another Candidate").show();
                                     }
@@ -109,19 +111,23 @@ public class CandidateDetailsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             ApiService voteApiService = ApiFactory.create(MVoteApplication.get(CandidateDetailsActivity.this).getRetrofit());
-                            Call<String> voteStringCall = voteApiService.vote(userId, electionId, candidateId);
-                            voteStringCall.enqueue(new Callback<String>() {
+                            Call<Vote> voteStringCall = voteApiService.vote(userId, electionId, candidateId);
+                            voteStringCall.enqueue(new Callback<Vote>() {
                                 @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
-                                    count.setText("Total Vote Count: 1");
-                                    vote.setText("Voted");
-                                    vote.setBackground(ContextCompat.getDrawable(CandidateDetailsActivity.this,
-                                            R.drawable.vote_btn_style));
-                                    Toasty.success(CandidateDetailsActivity.this, "Voted Successfully!!!").show();
+                                public void onResponse(Call<Vote> call, Response<Vote> response) {
+                                    Vote votes = response.body();
+                                    if (votes != null && votes.getVote().equals("success")) {
+                                        count.setText("Total Vote Count: 1");
+                                        vote.setText("Voted");
+                                        vote.setBackground(ContextCompat.getDrawable(CandidateDetailsActivity.this,
+                                                R.drawable.vote_btn_style));
+                                        Toasty.success(CandidateDetailsActivity.this, "Voted Successfully!!!").show();
+                                    }
                                 }
 
                                 @Override
-                                public void onFailure(Call<String> call, Throwable t) {
+                                public void onFailure(Call<Vote> call, Throwable t) {
+                                    Log.e("ttt", "onFailure: " + t.getMessage());
                                     Toasty.error(CandidateDetailsActivity.this,
                                             "Already voted in this election to another Candidate").show();
                                 }

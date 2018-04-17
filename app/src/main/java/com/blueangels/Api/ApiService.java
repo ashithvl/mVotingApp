@@ -4,6 +4,7 @@ import com.blueangels.Model.Candidate;
 import com.blueangels.Model.CandidateDetail;
 import com.blueangels.Model.Election;
 import com.blueangels.Model.User;
+import com.blueangels.Model.Vote;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface ApiService {
                                            @Path("electionId") String electionId, @Path("candidateId") String candidateId);
 
     @POST("user/vote/{userId}/{electionId}/{candidateId}")
-    Call<String> vote(@Path("userId") String userId,
-                                           @Path("electionId") String electionId, @Path("candidateId") String candidateId);
+    Call<Vote> vote(@Path("userId") String userId,
+                    @Path("electionId") String electionId, @Path("candidateId") String candidateId);
 
 }
